@@ -31,6 +31,31 @@ axios.interceptors.response.use(
   }
 );
 
+addButton.addEventListener('click', (event) => {
+  try {
+    alert('Card was sucessfully added to your deck ✅');
+    event.target.style.backgroundColor = 'lightblue';
+
+    const currentDeck = localStorage.getItem("pokemonDeck");
+    //Check if the pokemonDeck if not create empty array
+    let dataArray = currentDeck ? JSON.parse(currentDeck) : [];
+
+    //Check if pokemonDeck is an array
+    if (!Arry.isArray(dataArray)) {
+        console.error(`Data stored under key "pokemonDeck" is not an array. Creating new array.`)
+        dataArray = [];
+    } 
+    dataArray.push(currentPokemon);
+
+    localStorage.setItem("pokemonDeck", JSON.stringify(dataArray));
+
+  } catch(error) {
+    console.error("Error adding to deck:", error);
+  }
+});
+
+let currentPokemon = null;
+
 let allPokemon = []; // Cache all pokemon data
 
 const getAllPokemon = async () => {
@@ -83,9 +108,9 @@ const displaySuggestions = (suggestions) => {
             li.addEventListener('click', async () => {
                 try {
                     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.name}`);
-                    const pokemonData = response.data;
+                    currentPokemon = response.data;
                     
-                    const card = createPokemonCard(pokemonData);
+                    const card = createPokemonCard(currentPokemon);
                     const container = document.querySelector('.card-container');
                     container.innerHTML = '';
                     container.appendChild(card);
@@ -162,13 +187,6 @@ function createPokemonCard(pokemon) {
 
     return card;
 }
-
-addButton.addEventListener('click', (event) => {
-  console.log("Button was clicked!");
-  // Optional: access the clicked element using event.target
-  alert('Card was sucessfully added to your deck ✅');
-  event.target.style.backgroundColor = 'lightblue';
-});
 
 // Add input event listener with debounce
 searchInput.addEventListener('input', debounce((e) => {

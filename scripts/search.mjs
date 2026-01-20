@@ -1,3 +1,6 @@
+const addButton = document.getElementById("add-btn");
+//addBtn.classList.add('hidden-btn');
+
 // Request interceptor
 axios.interceptors.request.use(
   (config) => {
@@ -90,7 +93,7 @@ const displaySuggestions = (suggestions) => {
                     searchInput.value = item.name;
                     suggestionsContainer.innerHTML = '';
                     suggestionsContainer.classList.remove('active');
-                    addBtn.classList.add('hidden-btn');
+                    addBtn.classList.remove('hidden-btn');  // Show button after card displays
                 } catch (error) {
                     console.error("Error fetching pokemon details:", error);
                 }
@@ -159,6 +162,13 @@ function createPokemonCard(pokemon) {
 
     return card;
 }
+
+addButton.addEventListener('click', (event) => {
+  console.log("Button was clicked!");
+  // Optional: access the clicked element using event.target
+  alert('Card was sucessfully added to your deck ✅');
+  event.target.style.backgroundColor = 'lightblue';
+});
 
 // Add input event listener with debounce
 searchInput.addEventListener('input', debounce((e) => {

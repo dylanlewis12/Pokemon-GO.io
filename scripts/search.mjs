@@ -43,7 +43,6 @@ addBtn.addEventListener('click', (event) => {
     }
 
     alert('Card was sucessfully added to your deck ✅');
-    event.target.style.backgroundColor = 'lightblue';
 
     const currentDeck = localStorage.getItem("pokemonDeck");
     let dataArray = currentDeck ? JSON.parse(currentDeck) : [];
@@ -60,7 +59,7 @@ addBtn.addEventListener('click', (event) => {
     localStorage.setItem("pokemonDeck", JSON.stringify(dataArray));
 
   } catch(error) {
-    console.error("Error adding to deck:", error);
+    console.error("Error adding to deck:", error.message);
   }
 });
 

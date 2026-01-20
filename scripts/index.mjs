@@ -39,12 +39,12 @@ async function pokemonCarousel() {
 
         displayPokemonData(result);
 
-        // Show the next pokemon after 3 seconds
-        setTimeout(pokemonCarousel, 3000);
+        // Show the next pokemon after 1 second
+        setTimeout(pokemonCarousel, 1000);
     } catch(error) {
         console.log('Error fetching Pokémon data:', error.message);
-        // Retry after 3 seconds even if there's an error
-        setTimeout(pokemonCarousel, 3000);
+        // Retry after 1 second even if there's an error
+        setTimeout(pokemonCarousel, 1000);
     }
 }
 
@@ -95,11 +95,10 @@ function displayPokemonData(pokemon) {
             // Update pokemon number color
             pokemonNumberElement.style.color = primaryTypeColor;
             
-            // Update card styling - wrap in try/catch
+            // Update card styling 
             try {
                 if (card) {
                     card.style.background = `linear-gradient(135deg, ${primaryTypeColor}EE 0%, ${primaryTypeColor}DD 100%)`;
-                    // And just update the border
                     card.style.borderColor = primaryTypeColor;
 
 

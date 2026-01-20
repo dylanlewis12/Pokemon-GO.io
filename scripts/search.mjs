@@ -1,5 +1,5 @@
-const addButton = document.getElementById("add-btn");
-//addBtn.classList.add('hidden-btn');
+const addBtn = document.getElementById("add-btn");
+addBtn.classList.add('hidden-btn');
 
 // Request interceptor
 axios.interceptors.request.use(
@@ -31,21 +31,31 @@ axios.interceptors.response.use(
   }
 );
 
-addButton.addEventListener('click', (event) => {
+addBtn.addEventListener('click', (event) => {
   try {
+    console.log("Button clicked");
+    console.log("currentPokemon:", currentPokemon);  // Log the object
+    
+    if (!currentPokemon || !currentPokemon.name) {
+      console.error("No Pokemon selected!");
+      alert("Please select a Pokemon first!");
+      return;
+    }
+
     alert('Card was sucessfully added to your deck ✅');
     event.target.style.backgroundColor = 'lightblue';
 
     const currentDeck = localStorage.getItem("pokemonDeck");
-    //Check if the pokemonDeck if not create empty array
     let dataArray = currentDeck ? JSON.parse(currentDeck) : [];
 
-    //Check if pokemonDeck is an array
-    if (!Arry.isArray(dataArray)) {
+    if (!Array.isArray(dataArray)) {
         console.error(`Data stored under key "pokemonDeck" is not an array. Creating new array.`)
         dataArray = [];
     } 
+    
     dataArray.push(currentPokemon);
+    console.log("Added Object:", currentPokemon);
+    console.log("Updated Deck:", dataArray);
 
     localStorage.setItem("pokemonDeck", JSON.stringify(dataArray));
 
@@ -79,7 +89,6 @@ function debounce(func, delay) {
 
 const searchInput = document.getElementById('search-input');
 const suggestionsContainer = document.getElementById('suggestions-container');
-const addBtn = document.getElementById('add-btn');
 
 const fetchSuggestions = (query) => {
     if (query.length < 2) {
@@ -127,7 +136,6 @@ const displaySuggestions = (suggestions) => {
             suggestionsContainer.appendChild(li);
         });
         suggestionsContainer.classList.add('active');
-        addBtn.classList.remove('hidden-btn');
     } else {
         suggestionsContainer.classList.remove('active');
         addBtn.classList.add('hidden-btn');

@@ -83,14 +83,7 @@ function displayPokemonDeck() {
         const currentDeck = localStorage.getItem("pokemonDeck");
         let dataArray = currentDeck ? JSON.parse(currentDeck) : [];
 
-        if (!Array.isArray(dataArray)) { //Stop function if pokemon Deck has not been created yet
-            console.error(`Data stored under key "pokemonDeck" is not an array. Creating new array.`);
-            dataArray = [];
-            return;
-        } else if(dataArray.length < 1) { //Stop function if no pokemon have been added
-            alert(`Pokemon Deck is currently empty.`);
-            return;
-        }
+        console.log(currentDeck);
 
         const cardContainer = document.querySelector('.card-container');
         cardContainer.innerHTML = '';  // Clear existing cards and reset display

@@ -1,3 +1,5 @@
+const pressStart = document.getElementById("press-start");
+
 // Request interceptor
 axios.interceptors.request.use(
   (config) => {
@@ -135,5 +137,6 @@ function displayPokemonData(pokemon) {
         console.error('Error in displayPokemonData:', error);
     }
 }
-// Start the carousel
+
+//start carousel
 pokemonCarousel();

@@ -58,6 +58,8 @@ addBtn.addEventListener('click', (event) => {
 
     localStorage.setItem("pokemonDeck", JSON.stringify(dataArray));
 
+    console.log(currentPokemon);
+
   } catch(error) {
     console.error("Error adding to deck:", error.message);
   }
